@@ -23,7 +23,8 @@ def toChar(num):
         #如果该位为0,且该位不是万位也不是各位，则只加‘零’不加单位
         if int(numStr[i]) == 0 and \
             (i != n-1 and i != n-5 and i != n-9 and i != n-13):
-            output = output + numC
+            if output[-1] != numChar[0]: #如果前面一位不为零，则加零
+                output = output + numC
         else:
             output = output + numC + unitC
 
@@ -33,6 +34,8 @@ def toChar(num):
             and n != 1:
             while output[-2] == numChar[0]:
                 output = output[:-2] + output[-1]
+            if output[-2] in unitChar: #去除前面没有数字的单位
+                output = output[:-1]
                 
     if num < 0:
         output = '负'.decode('utf8') + output
@@ -41,4 +44,4 @@ def toChar(num):
 
 
 if __name__ == '__main__':
-    print toChar(1298382012093000)
+    print toChar(100000002)
